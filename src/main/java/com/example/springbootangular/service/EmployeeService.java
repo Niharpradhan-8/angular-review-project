@@ -11,4 +11,6 @@ public interface EmployeeService {
     public Employee saveEmployee(EmployeeDto employeeDto);
 
     public void deleteEmployee(EmployeePk id);
+
+    public Employee getEmployeebyId(EmployeePk empployeePk);
 }

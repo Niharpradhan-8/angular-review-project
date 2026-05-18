@@ -33,4 +33,14 @@ public class EmployeeServiceImpl implements EmployeeService{
             throw new RecordNotFoundException(e.getMessage());
         }
     }
+
+    @Override
+    public Employee getEmployeebyId(EmployeePk empployeePk) {
+        try {
+            return employeeRepository.findById(empployeePk).orElseThrow(() -> new RecordNotFoundException("User not found!"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RecordNotFoundException(e.getMessage());
+        }
+    }
 }
