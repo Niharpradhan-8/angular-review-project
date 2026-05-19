@@ -11,8 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class ApiResponseDto {
+public class ApiResponseDto<T> {
     private String code;
     private String message;
-    private List<JSONObject> data;
+    private T data;
 }

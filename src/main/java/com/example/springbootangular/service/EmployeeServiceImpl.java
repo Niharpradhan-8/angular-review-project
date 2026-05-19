@@ -4,34 +4,44 @@ import com.example.springbootangular.dto.ApiResponseDto;
 import com.example.springbootangular.dto.EmployeeDto;
 import com.example.springbootangular.entity.Employee;
 import com.example.springbootangular.entity.EmployeePk;
+import com.example.springbootangular.exception.RecordAlreadyExistException;
 import com.example.springbootangular.exception.RecordNotFoundException;
 import com.example.springbootangular.repository.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
 
-public class EmployeeServiceImpl implements EmployeeService{
+import java.util.List;
+import java.util.Optional;
 
-     private EmployeeRepository employeeRepository;
+@RequiredArgsConstructor
+public class EmployeeServiceImpl implements EmployeeService {
+
+    private EmployeeRepository employeeRepository;
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
     @Override
-    public ApiResponseDto saveEmployee(EmployeeDto employeeDto) {
-        try {
-            EmployeePk employeePk = EmployeePk.builder().name(employeeDto.getName()).email(employeeDto.getEmail()).build();
-
-        } catch (Exception e) {
-
+    public ApiResponseDto<Employee> saveEmployee(EmployeeDto employeeDto) {
+        EmployeePk employeePk = EmployeePk.builder().name(employeeDto.getName()).email(employeeDto.getEmail()).build();
+        Optional<Employee> employeeoptional = employeeRepository.findById(employeePk);
+        if (employeeoptional.isPresent()) {
+            throw new RecordAlreadyExistException("Employee Record is already added.");
         }
-        return null;
+        Employee employee = Employee.builder().employeePk(employeePk).
+                dob(employeeDto.getDob()).address(employeeDto.getAddress())
+                .phoneNumber(employeeDto.getPhoneNumber()).build();
+        employeeRepository.save(employee);
+        return new ApiResponseDto<>("SUCCESS", "EMPLOYEE RECORD ADDED SUCCESSFULLY", employee);
+
     }
 
     @Override
     public void deleteEmployee(EmployeePk id) {
-        try{
-            Employee employee = employeeRepository.findById(id).orElseThrow(() ->new RecordNotFoundException("Employee not found"));
+        try {
+            Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("Employee not found"));
             employeeRepository.deleteById(id);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new RecordNotFoundException(e.getMessage());
         }
     }
