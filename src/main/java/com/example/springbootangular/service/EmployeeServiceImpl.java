@@ -1,5 +1,6 @@
 package com.example.springbootangular.service;
 
+import com.example.springbootangular.dto.ApiResponseDto;
 import com.example.springbootangular.dto.EmployeeDto;
 import com.example.springbootangular.entity.Employee;
 import com.example.springbootangular.entity.EmployeePk;
@@ -15,8 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee saveEmployee(EmployeeDto employeeDto) {
+    public ApiResponseDto saveEmployee(EmployeeDto employeeDto) {
         try {
+            EmployeePk employeePk = EmployeePk.builder().name(employeeDto.getName()).email(employeeDto.getEmail()).build();
 
         } catch (Exception e) {
 
