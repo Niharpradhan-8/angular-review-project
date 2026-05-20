@@ -8,6 +8,7 @@ import com.example.springbootangular.exception.RecordAlreadyExistException;
 import com.example.springbootangular.exception.RecordNotFoundException;
 import com.example.springbootangular.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,11 +48,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeebyId(EmployeePk empployeePk) {
+    public ApiResponseDto<Employee> getEmployeebyId(EmployeePk empployeePk) {
         try {
-            return employeeRepository.findById(empployeePk).orElseThrow(() -> new RecordNotFoundException("User not found!"));
+            Optional<Employee> optionalEmployee = employeeRepository.findById(empployeePk);
+            if(optionalEmployee.isEmpty()){
+                throw new RecordNotFoundException("Employee record not found!");
+            }
+            Employee employee = optionalEmployee.get();
+            return new ApiResponseDto<>("SUCCESS","EMployee record fetched success",employee);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RecordNotFoundException(e.getMessage());
         }
     }

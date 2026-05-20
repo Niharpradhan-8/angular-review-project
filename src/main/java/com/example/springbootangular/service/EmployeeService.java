@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EmployeeService {
 
-    public ApiResponseDto saveEmployee(EmployeeDto employeeDto);
+    public ApiResponseDto<Employee> saveEmployee(EmployeeDto employeeDto);
 
     public void deleteEmployee(EmployeePk id);
 
-    public Employee getEmployeebyId(EmployeePk empployeePk);
+    public ApiResponseDto<Employee> getEmployeebyId(EmployeePk empployeePk);
 }
