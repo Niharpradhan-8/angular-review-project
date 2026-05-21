@@ -38,24 +38,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(EmployeePk id) {
+    public ApiResponseDto<Employee> deleteEmployee(EmployeePk id) {
         try {
             Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("Employee not found"));
             employeeRepository.deleteById(id);
+            return new ApiResponseDto<>("SUCCESS","Employee deleted successfully",null);
         } catch (Exception e) {
             throw new RecordNotFoundException(e.getMessage());
         }
     }
 
     @Override
-    public ApiResponseDto<Employee> getEmployeebyId(EmployeePk empployeePk) {
+    public ApiResponseDto<Employee> getEmployeeById(EmployeePk employeePk) {
         try {
-            Optional<Employee> optionalEmployee = employeeRepository.findById(empployeePk);
+            Optional<Employee> optionalEmployee = employeeRepository.findById(employeePk);
             if(optionalEmployee.isEmpty()){
                 throw new RecordNotFoundException("Employee record not found!");
             }
             Employee employee = optionalEmployee.get();
-            return new ApiResponseDto<>("SUCCESS","EMployee record fetched success",employee);
+            return new ApiResponseDto<>("SUCCESS","Employee record fetched success",employee);
         } catch (Exception e) {
             throw new RecordNotFoundException(e.getMessage());
         }

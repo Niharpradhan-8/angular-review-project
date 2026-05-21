@@ -11,7 +11,7 @@ public interface EmployeeService {
 
     public ApiResponseDto<Employee> saveEmployee(EmployeeDto employeeDto);
 
-    public void deleteEmployee(EmployeePk id);
+    public ApiResponseDto<Employee> deleteEmployee(EmployeePk id);
 
-    public ApiResponseDto<Employee> getEmployeebyId(EmployeePk empployeePk);
+    public ApiResponseDto<Employee> getEmployeeById(EmployeePk empployeePk);
 }
