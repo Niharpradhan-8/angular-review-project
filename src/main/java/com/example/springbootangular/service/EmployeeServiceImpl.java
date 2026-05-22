@@ -61,4 +61,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new RecordNotFoundException(e.getMessage());
         }
     }
+
+    @Override
+    public ApiResponseDto<Employee> updateEmployee(EmployeeDto employeeDto) {
+        return null;
+    }
 }
