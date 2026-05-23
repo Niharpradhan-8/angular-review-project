@@ -9,6 +9,7 @@ import com.example.springbootangular.exception.RecordNotFoundException;
 import com.example.springbootangular.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +65,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ApiResponseDto<Employee> updateEmployee(EmployeeDto employeeDto) {
+        return null;
+    }
+
+    @Override
+    public ApiResponseDto<Employee> getAllEmployee(int pageNo, RequestParam pageSize, String searchParam) {
         return null;
     }
 }
