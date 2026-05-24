@@ -65,11 +65,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ApiResponseDto<Employee> updateEmployee(EmployeeDto employeeDto) {
+        try{
+
+        }catch(Exception e){
+
+        }
         return null;
     }
 
     @Override
     public ApiResponseDto<Employee> getAllEmployee(int pageNo, RequestParam pageSize, String searchParam) {
+        try{
+
+        }catch(Exception e){
+
+        }
         return null;
     }
 }
