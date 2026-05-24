@@ -43,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("Employee not found"));
             employeeRepository.deleteById(id);
-            return new ApiResponseDto<>("SUCCESS","Employee deleted successfully",null);
+            return new ApiResponseDto<>("SUCCESS", "Employee deleted successfully", null);
         } catch (Exception e) {
             throw new RecordNotFoundException(e.getMessage());
         }
@@ -53,11 +53,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ApiResponseDto<Employee> getEmployeeById(EmployeePk employeePk) {
         try {
             Optional<Employee> optionalEmployee = employeeRepository.findById(employeePk);
-            if(optionalEmployee.isEmpty()){
+            if (optionalEmployee.isEmpty()) {
                 throw new RecordNotFoundException("Employee record not found!");
             }
             Employee employee = optionalEmployee.get();
-            return new ApiResponseDto<>("SUCCESS","Employee record fetched success",employee);
+            return new ApiResponseDto<>("SUCCESS", "Employee record fetched success", employee);
         } catch (Exception e) {
             throw new RecordNotFoundException(e.getMessage());
         }
@@ -65,9 +65,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ApiResponseDto<Employee> updateEmployee(EmployeeDto employeeDto) {
-        try{
+        try {
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
         return null;
@@ -75,9 +75,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ApiResponseDto<Employee> getAllEmployee(int pageNo, RequestParam pageSize, String searchParam) {
-        try{
+        try {
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
         return null;
