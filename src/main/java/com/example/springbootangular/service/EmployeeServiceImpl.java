@@ -8,6 +8,8 @@ import com.example.springbootangular.exception.RecordAlreadyExistException;
 import com.example.springbootangular.exception.RecordNotFoundException;
 import com.example.springbootangular.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+
+    private MessageSource messageSource;
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
@@ -34,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 dob(employeeDto.getDob()).address(employeeDto.getAddress())
                 .phoneNumber(employeeDto.getPhoneNumber()).build();
         employeeRepository.save(employee);
-        return new ApiResponseDto<>("SUCCESS", "EMPLOYEE RECORD ADDED SUCCESSFULLY", employee);
+        return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0001",null, LocaleContextHolder.getLocale()), employee);
 
     }
 
