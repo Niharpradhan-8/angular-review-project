@@ -8,6 +8,7 @@ import com.example.springbootangular.exception.RecordAlreadyExistException;
 import com.example.springbootangular.exception.RecordNotFoundException;
 import com.example.springbootangular.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -19,12 +20,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
     private final MessageSource messageSource;
-    private final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);// LogFactory with loombook used for logger;
+    //private final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);// LogFactory with loombook used for logger;
 
     @Override
     public ApiResponseDto<Employee> saveEmployee(EmployeeDto employeeDto) {
@@ -37,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 dob(employeeDto.getDob()).address(employeeDto.getAddress())
                 .phoneNumber(employeeDto.getPhoneNumber()).build();
         employeeRepository.save(employee);
-        logger.info("Employee saved successfully");
+        log.info("Employee saved successfully");
         return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0001",null, LocaleContextHolder.getLocale()), employee);
 
     }
