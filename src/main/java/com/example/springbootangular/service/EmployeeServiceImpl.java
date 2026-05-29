@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 dob(employeeDto.getDob()).address(employeeDto.getAddress())
                 .phoneNumber(employeeDto.getPhoneNumber()).build();
         employeeRepository.save(employee);
-        log.info("Employee saved successfully");
+        C
         return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0001",null, LocaleContextHolder.getLocale()), employee);
 
     }
@@ -66,6 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Employee employee = optionalEmployee.get();
             return new ApiResponseDto<>("SUCCESS", "Employee record fetched success", employee);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new RecordNotFoundException(e.getMessage());
         }
     }
