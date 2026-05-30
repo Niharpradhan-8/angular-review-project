@@ -39,7 +39,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 dob(employeeDto.getDob()).address(employeeDto.getAddress())
                 .phoneNumber(employeeDto.getPhoneNumber()).build();
         employeeRepository.save(employee);
-        C
         return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0001",null, LocaleContextHolder.getLocale()), employee);
 
     }
