@@ -14,15 +14,15 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 public class Employee {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @EmbeddedId
     private EmployeePk employeePk;
 
+    @Column(name = "date_of_birth")
     private LocalDate dob;
 
+    @Column(name = "emp_address")
     private String address;
 
+    @Column(name = "emp_phone_no")
     private String phoneNumber;
 }
