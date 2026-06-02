@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -73,11 +74,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ApiResponseDto<Employee> updateEmployee(EmployeeDto employeeDto) {
         try {
-
+            EmployeePk employeePk = EmployeePk.builder().name(employeeDto.getName()).email(employeeDto.getEmail()).build();
+            Employee employee = employeeRepository.findById(employeePk).orElseThrow(() ->new RecordNotFoundException("Employee record not found"));
+            BeanUtils.copyProperties(employeeDto,employee);
+            return new ApiResponseDto<>("SUCCESS","Employee updated successfully",employeeRepository.save(employee));
         } catch (Exception e) {
-
+            log.error(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
