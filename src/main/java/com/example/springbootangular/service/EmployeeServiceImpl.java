@@ -74,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ApiResponseDto<Employee> updateEmployee(EmployeeDto employeeDto) {
         try {
+            log.info("update employee called");
             EmployeePk employeePk = EmployeePk.builder().name(employeeDto.getName()).email(employeeDto.getEmail()).build();
             Employee employee = employeeRepository.findById(employeePk).orElseThrow(() ->new RecordNotFoundException("Employee record not found"));
             BeanUtils.copyProperties(employeeDto,employee);
