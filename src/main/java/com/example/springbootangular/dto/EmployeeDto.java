@@ -2,15 +2,16 @@ package com.example.springbootangular.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder= true)
 public class EmployeeDto {
     @NotBlank(message = "Name should not be blank")
     private String name;
