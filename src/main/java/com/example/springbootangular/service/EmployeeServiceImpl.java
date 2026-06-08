@@ -65,6 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 throw new RecordNotFoundException("Employee record not found!");
             }
             Employee employee = optionalEmployee.get();
+            log.info("Employee retrived successfully with id {}",employeePk);
             return new ApiResponseDto<>("SUCCESS", "Employee record fetched success", employee);
         } catch (Exception e) {
             log.error(e.getMessage());
