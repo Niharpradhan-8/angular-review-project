@@ -53,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             log.info("Employee deleted successfully with id {}",id);
             return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0002",null, LocaleContextHolder.getLocale()), employee);
         } catch (Exception e) {
+            log.error("Error occured");
             throw new RecordNotFoundException(e.getMessage());
         }
     }
