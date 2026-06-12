@@ -31,18 +31,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ApiResponseDto<Employee> saveEmployee(EmployeeDto employeeDto) {
-        EmployeePk employeePk = EmployeePk.builder().name(employeeDto.getName()).email(employeeDto.getEmail()).build();
-        Optional<Employee> employeeoptional = employeeRepository.findById(employeePk);
-        if (employeeoptional.isPresent()) {
-            throw new RecordAlreadyExistException("Employee Record is already added.");
+        try {
+            EmployeePk employeePk = EmployeePk.builder().name(employeeDto.getName()).email(employeeDto.getEmail()).build();
+            Optional<Employee> employeeoptional = employeeRepository.findById(employeePk);
+            if (employeeoptional.isPresent()) {
+                throw new RecordAlreadyExistException("Employee Record is already added.");
+            }
+            Employee employee = Employee.builder().employeePk(employeePk).
+                    dob(employeeDto.getDob()).address(employeeDto.getAddress())
+                    .phoneNumber(employeeDto.getPhoneNumber()).build();
+            employeeRepository.save(employee);
+            log.info("Employee added sucessfully");
+            return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0001", null, LocaleContextHolder.getLocale()), employee);
+        }catch(Exception e){
+            log.error(e.getMessage());
+            throw e;
         }
-        Employee employee = Employee.builder().employeePk(employeePk).
-                dob(employeeDto.getDob()).address(employeeDto.getAddress())
-                .phoneNumber(employeeDto.getPhoneNumber()).build();
-        employeeRepository.save(employee);
-        log.info("Employee added sucessfully");
-        return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0001",null, LocaleContextHolder.getLocale()), employee);
-
     }
 
     @Override
