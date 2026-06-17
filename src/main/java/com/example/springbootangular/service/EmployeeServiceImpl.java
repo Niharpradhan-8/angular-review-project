@@ -55,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("Employee not found"));
             employeeRepository.deleteById(id);
             log.info("Employee deleted successfully");
-            log.info("method completed");
+            log.info("method completed....");
             return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0002",null, LocaleContextHolder.getLocale()), employee);
         } catch (Exception e) {
             log.error("Error occured");
