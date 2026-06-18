@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 1. Console Appender (Keeps your current console setup) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 2. Daily Rolling File Appender -->
+    <appender name="DAILY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Active log file path for the current day -->
+        <file>logs/app.log</file>
+
+        <!-- Rollover policy: Creates a new file daily based on the date pattern -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Daily rollover filename structure -->
+            <fileNamePattern>logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- Optional: Keep 30 days worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 3. Configure log levels for your target service package -->
+    <logger name="com.example.springbootangular.service" level="DEBUG" />
+
+    <!-- 4. Root Logger (Applies to both Appenders globally) -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="DAILY_FILE" />
+    </root>
+
+</configuration>
