@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
             Employee employee = optionalEmployee.get();
             log.info("Employee retrived successfully with id {}",employeePk);
-            return new ApiResponseDto<>("SUCCESS", "Employee record fetched success", employee);
+            return new ApiResponseDto<>("SUCCESS", messageSource.getMessage("EMPLOYEE.MSG.VALERR0003",null, LocaleContextHolder.getLocale()), employee);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new RecordNotFoundException(e.getMessage());
